@@ -1,0 +1,206 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="Selenium Framework Test Suite" parallel="methods"
+       verbose="1" thread-count="5">
+    <listeners>
+        <listener class-name="com.seleniumtests.reporter.SeleniumTestsReporter"/>
+        <!--<listener class-name="com.seleniumtests.core.TestRetryListener"/>-->
+    </listeners>
+
+    <parameter name="appURL" value="http://www.seleniumtests.com/2015/12/test-registration-page.html"/>
+    <parameter name="browser" value="*chrome"/>  <!--"*firefox, *chrome, *iexplore, *android"-->
+    <parameter name="runMode" value="LOCAL"/> <!--LOCAL or ExistingGrid -->
+    <!--if parameter runMode is set to ExistingGrid then parameter webDriverGrid should have value set to system running grid
+
+    To start grid on a machine use following command -
+    java -jar selenium-server-standalone-<version>.jar -role hub
+
+    To execute tests on firefox using selenium grid, start node running firefox as -
+    java -jar selenium-server-standalone-<version>.jar -role node  -hub http://localhost:4444/grid/register
+    -browser  browserName=firefox platform=WINDOWS, ensureCleanSession=true, javascriptEnabled=true, acceptSslCerts=true,
+    ignoreProtectedModeSettings=true, ignoreZoomSetting=true, takesScreenshot=true
+
+    To execute tests on chrome using selenium grid, start node running chrome as -
+    java -jar selenium-server-standalone-<version>.jar -role node  -hub http://localhost:4444/grid/register -browser  browserName
+    =chrome platform=WINDOWS, ensureCleanSession=true, javascriptEnabled=true, acceptSslCerts=true, ignoreProtectedModeSettings=true,
+    ignoreZoomSetting=true, takesScreenshot=true -Dwebdriver.chrome.driver="<path to chrome driver exe on node machine>\chromedriver.exe"
+
+    To execute tests on internet explorer using selenium grid, start node running internet explorer as -
+    java -jar selenium-server-standalone-<version>.jar -role node  -hub http://localhost:4444/grid/register -browser  browserName
+    ="internet explorer" platform=WINDOWS, ensureCleanSession=true, javascriptEnabled=true, acceptSslCerts=true, ignoreProtectedModeSettings=true,
+    ignoreZoomSetting=true, takesScreenshot=true -Dwebdriver.ie.driver="<path to internet explorer driver on node machine>\IEDriverServer.exe"
+    -->
+
+    <parameter name="webDriverGrid" value="http://localhost:4444/wd/hub"/>
+    <parameter name="webSessionTimeOut" value="120000"/>
+    <parameter name="maxConcurrentWebSessions" value="5"/>
+    <parameter name="softAssertEnabled" value="true"/>
+    <!-- For soft assert, use assert APIs from  com.seleniumtests.core.CustomAssertion class-->
+    <parameter name="useFirefoxDefaultProfile" value="false"/>
+
+    <!--<test name="WebTest - Using java 8">
+        &lt;!&ndash;testType parameter is optional for web test, since testType defaults to web&ndash;&gt;
+        <parameter name="testType" value="Web"/>
+        <classes>
+            &lt;!&ndash;<class name="com.seleniumtests.tests.web.SeleniumWithJava8"/>&ndash;&gt;
+            <class name="com.seleniumtests.tests.api_testing.RestAPITest1"></class>
+        </classes>
+    </test>-->
+
+    <!--<test name="WebTest - Test Link Login Test in Chrome">
+        &lt;!&ndash;testType parameter is optional for web test, since testType defaults to web&ndash;&gt;
+        <parameter name="testType" value="Web" />
+        <classes>
+            <class name="com.seleniumtests.tests.web.RegistrationTest" />
+        </classes>
+    </test>-->
+    <!--<test name="WebTest - Test Link Login Test in Firefox">
+        &lt;!&ndash;testType parameter is optional for web test, since testType defaults to web&ndash;&gt;
+        <parameter name="testType" value="Web" />
+        <parameter name="browser" value="*firefox" />
+        <classes>
+            <class name="com.seleniumtests.tests.web.RegistrationTest" />
+        </classes>
+    </test>
+
+    <test name="NonGUITest - Multiple assertion failures">
+        <parameter name="testType" value="NonGUI" />
+        <classes>
+            <class name="com.seleniumtests.tests.web.RetryTest" />
+        </classes>
+    </test>
+
+    <test name="NonGUITest - Soft CustomAssertion Test">
+        <parameter name="testType" value="NonGUI" />
+        <classes>
+            <class name="com.seleniumtests.tests.web.SoftAssertionTest" />
+        </classes>
+    </test> -->
+
+    <!--<test name="Android m-site Test" parallel="false">
+        <parameter name="testType" value="Web" />
+        <parameter name="browser" value="*android" />
+        <parameter name="appiumServerURL" value="http://localhost:4723/wd/hub"/>
+        <parameter name="automationName" value="Appium"/>
+        <parameter name="platform" value="Android"/>
+        &lt;!&ndash;<parameter name="mobilePlatformVersion" value="5.1"/>&ndash;&gt;
+        &lt;!&ndash; device name is displayed on command adb devices &ndash;&gt;
+        <parameter name="deviceName" value="L2N0219828001013"/>
+
+        &lt;!&ndash;Test on default emulator Browser
+        Set the property to "Chrome" to run test on chrome browser on android device instead of default Browser&ndash;&gt;
+        <parameter name="browserName" value="Chrome"/>
+        <parameter name="newCommandTimeout" value="120"/>
+        <parameter name="parallel" value="false"/>
+        <classes>
+            <class name="com.seleniumtests.tests.mobile.AndroidWebTest" />
+        </classes>
+    </test>-->
+
+    <!--<test name="iOS m-site Test" parallel="false">
+        <parameter name="testType" value="Web" />
+        &lt;!&ndash;browser *iphone is used to run tests on both iphone and ipad&ndash;&gt;
+        <parameter name="browser" value="*iphone" />
+        <parameter name="appiumServerURL" value="http://localhost:4723/wd/hub"/>
+        <parameter name="automationName" value="Appium"/>
+        <parameter name="platform" value="iOS"/>
+        &lt;!&ndash; You can find the device name, version on ios by executing command "instruments -s devices" &ndash;&gt;
+        <parameter name="mobilePlatformVersion" value="8.4"/>
+        <parameter name="deviceName" value="iPhone 6"/>
+        <parameter name="app" value="Safari"/>
+        <parameter name="browserName" value="Safari"/>
+        <parameter name="newCommandTimeout" value="120"/>
+
+        <parameter name="parallel" value="false"/>
+
+        <classes>
+            <class name="com.seleniumtests.tests.web.RegistrationTest" />
+        </classes>
+    </test>-->
+
+    <test name="Android App test" parallel="false">
+        <parameter name="browser" value="*android" />
+        <parameter name="testType" value="app" />
+        <parameter name="appiumServerURL" value="http://localhost:4723/wd/hub"/>
+        <parameter name="platform" value="Android"/>
+        <!--Android version as found on phone settings -->
+        <parameter name="mobilePlatformVersion" value="10"/>
+        <!--device name is displayed on command adb devices-->
+        <parameter name="deviceName" value="L2N0219828001013"/>
+
+        <!--Appium UiAutomator2 Driver is a test automation framework for Android devices
+        https://github.com/appium/appium-uiautomator2-driver-->
+        <parameter name="automationName" value="UiAutomator2"/>
+
+        <!--Path to app - The absolute local path or remote http URL. Appium will
+        attempt to install this app binary on the appropriate device first.
+        To launch an app, either path to app OR appPackage and appActivity should be specified-->
+        <!--<parameter name="app" value="Path To App"/>-->
+        <!--Java package of Android app to be run-->
+        <parameter name="appPackage" value="com.android.calculator2"/>
+        <!--Activity name for Android activity to be launched from package-->
+        <parameter name="appActivity" value="com.android.calculator2.Calculator"/>
+
+        <!--browserName should be empty string when automating app-->
+        <parameter name="browserName" value=""/>
+        <parameter name="newCommandTimeout" value="120"/>
+        <parameter name="parallel" value="false"/>
+
+        <groups>
+            <run>
+                <include name="addTwoNumbers"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.seleniumtests.tests.mobile.AndroidAppTest" />
+        </classes>
+    </test>
+
+    <!--<test name="iOS App test" parallel="false">
+        <parameter name="browser" value="*iphone" />
+        <parameter name="testType" value="app" />
+        <parameter name="appiumServerURL" value="http://localhost:4723/wd/hub"/>
+        <parameter name="automationName" value="Appium"/>
+        <parameter name="platform" value="iOS"/>
+        <parameter name="mobilePlatformVersion" value="8.4"/>
+        <parameter name="deviceName" value="iPhone 6"/>
+
+        &lt;!&ndash;Path to app, if appium server is running on a different machine then this path corresponds to machine
+        where appium server is running&ndash;&gt;
+        <parameter name="app" value="/Users/tbhadauria/Downloads/UICatalog.app"/>
+        &lt;!&ndash;browserName should be empty string when automating app&ndash;&gt;
+        <parameter name="browserName" value=""/>
+        <parameter name="newCommandTimeout" value="120"/>
+        <parameter name="parallel" value="false"/>
+
+        <groups>
+            <run>
+                <include name="verifyUICatalogScreen"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.seleniumtests.tests.mobile.IOSAppTest" />
+        </classes>
+
+    </test>
+
+    <test name="SauceLabs test" parallel="false">
+        <parameter name="browser" value="*saucelabs" />
+        &lt;!&ndash;<parameter name="testType" value="appium_web_ios" />&ndash;&gt;
+        <parameter name="sauceLabsURL" value="add saucelabs credentials"/>
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="platform" value="Windows 7"/>
+        <parameter name="version" value="46.0"/>
+
+        <groups>
+            <run>
+                <include name="sauce"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="com.seleniumtests.tests.web.SauceLabsTest" />
+        </classes>
+
+    </test>-->
+
+</suite> 
